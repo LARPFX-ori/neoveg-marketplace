@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loja do Neoveg</title>
+<meta name="description" content="Scripts e extensões para o editor de vídeo Neoveg.">
+<style>
+  :root {
+    --bg: #f7f7f5; --card: #ffffff; --text: #1d1d1b; --muted: #5f5f5a;
+    --line: #e2e2dd; --accent: #2f7d4f; --accent-soft: #e6f2ea;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #151614; --card: #1e201d; --text: #ececea; --muted: #a3a59f;
+      --line: #30332e; --accent: #6cc28f; --accent-soft: #1f3327;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 960px; margin: 0 auto; padding: 32px 16px 48px; }
+  header h1 { margin: 0 0 4px; font-size: 1.8rem; }
+  header p { margin: 0; color: var(--muted); }
+  a { color: var(--accent); }
+  .barra { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin: 24px 0 16px; }
+  .barra input {
+    flex: 1 1 240px; padding: 10px 12px; font: inherit; color: var(--text);
+    background: var(--card); border: 1px solid var(--line); border-radius: 8px;
+  }
+  .barra span { color: var(--muted); font-size: .9rem; }
+  .grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+  .pacote {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 16px; display: flex; flex-direction: column; gap: 8px;
+  }
+  .pacote h2 { margin: 0; font-size: 1.05rem; }
+  .pacote p { margin: 0; color: var(--muted); font-size: .95rem; flex: 1; }
+  .meta { font-size: .82rem; color: var(--muted); }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag { background: var(--accent-soft); color: var(--accent); border-radius: 999px; padding: 2px 8px; font-size: .78rem; }
+  .aviso { padding: 16px; border: 1px dashed var(--line); border-radius: 10px; color: var(--muted); }
+  section.como { margin-top: 40px; }
+  section.como h2 { font-size: 1.15rem; }
+  code { background: var(--accent-soft); padding: 1px 5px; border-radius: 4px; }
+  footer { margin-top: 40px; color: var(--muted); font-size: .85rem; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Loja do Neoveg</h1>
+    <p>Scripts e extensões para o <a href="https://github.com/LARPFX-ori/neoveg">Neoveg</a>, só código-fonte e com licença livre.</p>
+  </header>
+
+  <div class="barra">
+    <input id="busca" type="search" placeholder="Buscar por nome, descrição ou tag" aria-label="Buscar pacotes">
+    <span id="contagem"></span>
+  </div>
+
+  <div id="lista" class="grade" aria-live="polite"></div>
+
+  <section class="como">
+    <h2>Como instalar</h2>
+    <p>No Neoveg, abra a janela <strong>Loja</strong>, escolha o pacote e clique em instalar. O programa baixa os arquivos e confere o SHA-256 de cada um antes de gravar.</p>
+    <h2>Como enviar um pacote</h2>
+    <p>Crie a pasta <code>pacotes/&lt;id&gt;/</code> com o <code>pacote.json</code> e os arquivos, rode <code>python ferramentas/loja.py gerar</code> e abra um pull request. Veja o <a href="https://github.com/LARPFX-ori/neoveg-marketplace/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>.</p>
+  </section>
+
+  <footer>
+    <a href="https://github.com/LARPFX-ori/neoveg-marketplace">Repositório</a> ·
+    <a href="index.json">index.json</a> ·
+    Estrutura e ferramentas sob MIT OR Apache-2.0; cada pacote tem a sua licença.
+  </footer>
+</main>
+
+<script>
+  const REPO = "https://github.com/LARPFX-ori/neoveg-marketplace";
+  const FONTES = ["index.json", "https://raw.githubusercontent.com/LARPFX-ori/neoveg-marketplace/main/index.json"];
+  const TIPOS = { "script-cs": "Script C#", "script-py": "Script Python", "extensao": "Extensão" };
+  const lista = document.getElementById("lista");
+  const busca = document.getElementById("busca");
+  const contagem = document.getElementById("contagem");
+  let pacotes = [];
+
+  function el(tag, cls, texto) {
+    const e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (texto !== undefined) e.textContent = texto;
+    return e;
+  }
+
+  function cartao(p) {
+    const c = el("article", "pacote");
+    c.append(el("h2", null, p.nome), el("p", null, p.descricao));
+    c.append(el("div", "meta", `${TIPOS[p.tipo] || p.tipo} · v${p.versao} · ${p.licenca} · Neoveg ${p.neoveg_min}+`));
+    c.append(el("div", "meta", `Autor: ${p.autor}`));
+    if (p.tags && p.tags.length) {
+      const t = el("div", "tags");
+      p.tags.forEach(x => t.append(el("span", "tag", x)));
+      c.append(t);
+    }
+    const a = el("a", null, "Ver código");
+    a.href = `${REPO}/tree/main/pacotes/${encodeURIComponent(p.id)}`;
+    c.append(a);
+    return c;
+  }
+
+  function mostrar() {
+    const q = busca.value.trim().toLowerCase();
+    const achados = pacotes.filter(p =>
+      !q || [p.nome, p.descricao, p.id, ...(p.tags || [])].join(" ").toLowerCase().includes(q));
+    lista.replaceChildren(...achados.map(cartao));
+    if (!achados.length) lista.append(el("div", "aviso", "Nenhum pacote encontrado."));
+    contagem.textContent = `${achados.length} de ${pacotes.length} pacote(s)`;
+  }
+
+  async function carregar() {
+    for (const url of FONTES) {
+      try {
+        const r = await fetch(url, { cache: "no-cache" });
+        if (!r.ok) continue;
+        const dados = await r.json();
+        pacotes = (dados.pacotes || []).slice().sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"));
+        mostrar();
+        return;
+      } catch (_) { /* tenta a próxima fonte */ }
+    }
+    lista.replaceChildren(el("div", "aviso", "Não foi possível carregar o catálogo agora."));
+  }
+
+  busca.addEventListener("input", mostrar);
+  carregar();
+</script>
+</body>
+</html>
