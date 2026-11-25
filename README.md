@@ -9,6 +9,7 @@ Catálogo de scripts e extensões para o [Neoveg](https://github.com/LARPFX-ori/
 | `pacotes/<id>/` | Um pacote: o `pacote.json` e os arquivos dele |
 | `index.json` | Catálogo gerado a partir de `pacotes/`; é o que o programa lê |
 | `ferramentas/loja.py` | Valida os pacotes e gera o `index.json` |
+| `index.html` | Página da loja (GitHub Pages): <https://larpfx-ori.github.io/neoveg-marketplace/> |
 
 ## Regras
 
