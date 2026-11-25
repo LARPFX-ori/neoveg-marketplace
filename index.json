@@ -1,0 +1,74 @@
+{
+  "versao_formato": 1,
+  "pacotes": [
+    {
+      "id": "fades-nos-eventos-selecionados",
+      "nome": "Fades nos eventos selecionados",
+      "descricao": "Aplica fade de entrada e de saída de meio segundo em todos os eventos selecionados, sem passar da metade de cada evento.",
+      "versao": "1.0.0",
+      "tipo": "script-cs",
+      "autor": "Contribuidores do Neoveg",
+      "licenca": "MIT OR Apache-2.0",
+      "fonte": "original",
+      "neoveg_min": "0.2.0",
+      "entrada": "FadesNosEventosSelecionados.cs",
+      "arquivos": [
+        {
+          "caminho": "FadesNosEventosSelecionados.cs",
+          "tamanho": 855,
+          "sha256": "accc6d8423a3509d0baf49c0c3436b4c2df135752de744688dab7a2c0221ee5c"
+        }
+      ],
+      "tags": [
+        "fades",
+        "edicao"
+      ]
+    },
+    {
+      "id": "marcadores-a-cada-intervalo",
+      "nome": "Marcadores a cada intervalo",
+      "descricao": "Põe um marcador a cada 5 segundos na seleção de tempo ou no projeto inteiro. O intervalo é uma constante no começo do script.",
+      "versao": "1.0.0",
+      "tipo": "script-cs",
+      "autor": "Contribuidores do Neoveg",
+      "licenca": "MIT OR Apache-2.0",
+      "fonte": "original",
+      "neoveg_min": "0.2.0",
+      "entrada": "MarcadoresACadaIntervalo.cs",
+      "arquivos": [
+        {
+          "caminho": "MarcadoresACadaIntervalo.cs",
+          "tamanho": 1245,
+          "sha256": "71f719132f2d1e59b835b69bad154b71a63f8001592c5c732bcb682b7d05e2d9"
+        }
+      ],
+      "tags": [
+        "marcadores",
+        "organizacao"
+      ]
+    },
+    {
+      "id": "renomear-eventos-pela-trilha",
+      "nome": "Renomear eventos pela trilha",
+      "descricao": "Renomeia os eventos com o nome da trilha e um número em ordem de tempo. Com eventos selecionados, só eles mudam.",
+      "versao": "1.0.0",
+      "tipo": "script-cs",
+      "autor": "Contribuidores do Neoveg",
+      "licenca": "MIT OR Apache-2.0",
+      "fonte": "original",
+      "neoveg_min": "0.2.0",
+      "entrada": "RenomearEventosPelaTrilha.cs",
+      "arquivos": [
+        {
+          "caminho": "RenomearEventosPelaTrilha.cs",
+          "tamanho": 1183,
+          "sha256": "8d7091afb6904ad81b094ca875ed480f0c1e95fb252e25e1a3582268aa525d69"
+        }
+      ],
+      "tags": [
+        "eventos",
+        "organizacao"
+      ]
+    }
+  ]
+}

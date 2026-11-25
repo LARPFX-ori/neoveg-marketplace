@@ -1,0 +1,19 @@
+{
+  "id": "renomear-eventos-pela-trilha",
+  "nome": "Renomear eventos pela trilha",
+  "descricao": "Renomeia os eventos com o nome da trilha e um número em ordem de tempo. Com eventos selecionados, só eles mudam.",
+  "versao": "1.0.0",
+  "tipo": "script-cs",
+  "autor": "Contribuidores do Neoveg",
+  "licenca": "MIT OR Apache-2.0",
+  "fonte": "original",
+  "neoveg_min": "0.2.0",
+  "entrada": "RenomearEventosPelaTrilha.cs",
+  "arquivos": [
+    "RenomearEventosPelaTrilha.cs"
+  ],
+  "tags": [
+    "eventos",
+    "organizacao"
+  ]
+}

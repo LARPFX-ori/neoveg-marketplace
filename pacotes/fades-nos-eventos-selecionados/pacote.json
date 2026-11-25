@@ -1,0 +1,19 @@
+{
+  "id": "fades-nos-eventos-selecionados",
+  "nome": "Fades nos eventos selecionados",
+  "descricao": "Aplica fade de entrada e de saída de meio segundo em todos os eventos selecionados, sem passar da metade de cada evento.",
+  "versao": "1.0.0",
+  "tipo": "script-cs",
+  "autor": "Contribuidores do Neoveg",
+  "licenca": "MIT OR Apache-2.0",
+  "fonte": "original",
+  "neoveg_min": "0.2.0",
+  "entrada": "FadesNosEventosSelecionados.cs",
+  "arquivos": [
+    "FadesNosEventosSelecionados.cs"
+  ],
+  "tags": [
+    "fades",
+    "edicao"
+  ]
+}
